@@ -2,11 +2,11 @@
 
 ## Pre-requisites
 ### 1. Create a role
-- Go to AWS console and open the IAM Console.
-- On the left side, select **Role**
+- Go to **`AWS console`** and open the **`IAM Console`**.
+- On the left side, select **`Role`**
 - In the search bar, enter the name of your cluster
 - Select the role with nodegroup mentioned inside the role name
-- Click on Add permissions then Create Inline Policy
+- Click on **Add permissions** then **Create Inline Policy**
 - On the Policy Editor Pane; select JSON and paste the follow
 
 ```bash
@@ -42,7 +42,7 @@ kubectl delete sc gp2
 ```
 
 ## Deployment of Jenkins
-**1. Create a namespace**
+**1. Create a namespace (`1.namespace.yaml`)**
 
 ```bash
 apiVersion: v1
@@ -55,7 +55,7 @@ metadata:
 kubectl apply -f 1.namespace.yaml
 ```
 
-**2. Create a service account**
+**2. Create a service account (`2.serviceaccount.yaml`)**
 
 ```bash
 apiVersion: v1
@@ -69,7 +69,7 @@ metadata:
 kubectl apply -f 2.serviceaccount.yaml
 ```
 
-**3. Create a Cluster Role**
+**3. Create a Cluster Role (`3.clusterrole.yaml`)**
 
 ```bash
 apiVersion: rbac.authorization.k8s.io/v1
@@ -86,7 +86,7 @@ rules:
 kubectl apply -f 3.clusterrole.yaml
 ```
 
-**4. Create a Cluster Role Binding**
+**4. Create a Cluster Role Binding (`4.clusterrolebinding.yaml`)**
 
 ```bash
 apiVersion: rbac.authorization.k8s.io/v1
@@ -113,7 +113,7 @@ kubectl apply -f 4.clusterrolebinding.yaml
 kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/ecr/?ref=master
 ```
 
-**6. Create Volume**
+**6. Create Volume (`5.volume.yaml`)**
 
 ```bash
 # Storage Class definition for EBS
@@ -147,7 +147,7 @@ spec:
 kubectl apply -f 5.volume.yaml
 ```
 
-**7. Create Deployment**
+**7. Create Deployment (`6.deployment.yaml`)**
 
 ```bash
 apiVersion: apps/v1
@@ -213,7 +213,7 @@ spec:
 kubectl apply -f 6.deployment.yaml
 ```
 
-**7. Create Service**
+**7. Create Service (`7.service.yaml`)**
 
 ```bash
 apiVersion: v1
@@ -236,4 +236,10 @@ spec:
 
 ```bash
 kubectl apply -f 7.service.yaml
-```
+```  
+
+## Cleanup
+
+```bash
+kubectl delete -f .
+``` 
